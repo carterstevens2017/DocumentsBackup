@@ -1,0 +1,43 @@
+ECE 471 Fall 2014 -- Homework 3
+
+Name:Carter Stevens
+
+Answer to Question #3a:	
+
+print_number:
+	push	{r10,LR}	// Stores the LR address in r10
+        ldr	r10,=buffer	// Renames LR address as "buffer"
+        add	r10,r10,#10	// Moves the address of buffer 10 bytes
+
+divide:
+	mov	r1,#10		// Assigns r1 the value of 10
+
+	bl	divide_by_10	// Links to program divide_by_10
+	add	r8,r8,#0x30	// Increases value of r8 by 38 bytes
+	strb	r8,[r10],#-1	// Post-index loads byte from r10 to r8 then subtracts 1
+	adds	r0,r7,#0	//adds r7 to r0 and sets flags
+	bne	divide		//if zero flag is off, branch to divide
+
+write_out:
+        add	r1,r10,#1	//increases buffer by 1 and sets to r1
+
+        bl	print_string	//branches to print_string to print number
+
+        pop	{r10,LR}	//sets LR to original address
+
+        mov	pc,lr		//sets pc to lr address
+
+Answer to Question #6:
+
+a. Hello_world.extra has a size of 644 bytes while hello_world.thumb has a smaller size of 612 bytes
+
+b. hello_world from hw 2 has a size of 3.088 Kb
+
+c. We would definitely use assembly in a space constrained system because it took up only 1/5 of the size of the c code
+
+d. The c code is much easier to write because of the way multiple operations can be done in one line, due to the higher level
+
+Answer to Question #7a:In September 1752 the British Empire switched from the Julian calendar to the Gregarian calendar. The
+			Gregarian calendar was 12 days ahead of the Julian calendar, so those 12 days were ignored but workers
+			were paid for a month of work.
+

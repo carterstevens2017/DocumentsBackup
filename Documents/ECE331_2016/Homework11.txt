@@ -1,0 +1,111 @@
+ECE 331
+Homework 11
+Carter Stevens
+
+1)
+a)
+
+$ sqlite automatic.db
+> create table cronlog(
+> index integer primary key autoincrement,
+> min text,
+> hour text,
+> dom text,
+> command text);
+
+b)
+> insert into cronlog values(NULL, '15,45', '6-18/2', '28', '4', 'Thu', '/home/pi/bin/afsk_tx');
+
+2)
+afsk_tx runs at the 15th and 45th minute every two hours from 6:00 AM to 6:00 PM 
+every thursday and April 28th
+
+3)
+a)
+
+$ sudo systemctl stop sendmail
+$ sudo systemctl disable sendmail
+
+b)
+
+Explain the situation to your boss, pass the buck.
+
+4)
+
+Destination	Gateway		Genmask		Flags	MSS	Window	irtt	Iface
+
+127.0.0.0	0.0.0.0		255.0.0.0	U	0	0	0	lo
+0.0.0.0		2.230.6.7	255.255.255.255 UG	0	0	0	eth1
+19.0.0.0	0.0.0.0		255.0.0.0	U	0	0	0	eth0
+8.6.0.0		0.0.0.0		255.255.0.0	U	0	0	0	eth2
+2.230.0.0	0.0.0.0		255.254.0.0	U	0	0	0	eth1
+
+5)
+
+<?php
+function table($w, $h)
+{
+	print "<TABLE BORDER=1 \n>";
+	for($i=0; i<$h; i++) {
+		print "<TR>";
+		for($j=0; j<$w; j++) {
+			$ind = $j + (5*$i);
+			print "<TH> $ind";
+		}
+		print "</TR>"
+	}
+	print "</TABLE>\n";
+}
+?>
+
+6)
+
+Network (DDN)	Assignable IP (DDN)	Netmask (CIDR)		Broadcast(DDN)
+40.128.0.0		40.139.1.2		/11		40.159.255.255	
+141.33.192.0		141.33.192.2		/21		141.33.199.255
+7)
+a)
+
+$ sudo useradd --shell /bin/sh --uid 12345 trump
+
+b)
+
+$ sudo usermod -e 1 trump
+
+c)
+
+$sudo cat /etc/shadow | grep -E ^[^:]+:[^:]+:0:.*
+
+8)
+
+#!/usr/bin/perl
+for ($i=0; $i<256; $i++) {
+	`./ax25 "set_delim" $i`;
+	@get = `./ax25 "get_delim"`;
+	if ($i == $get[$i]) {
+		print "Delim set to $i\n";
+	}
+	else {
+		print "Delim does not match\n";
+	}
+}
+
+
+9)
+a)
+
+No, the kernel code will not always work as predicted.
+
+b)
+
+With no locking in the afsk_open and afsk_release functions, there is potential for race conditions
+The pointer is not set to null on freeing
+Potential memory leak
+
+c)
+
+When allocating or freeing memory, locking should be used. Also, delim_buff=NULL 
+should be called after freeing memory
+
+
+

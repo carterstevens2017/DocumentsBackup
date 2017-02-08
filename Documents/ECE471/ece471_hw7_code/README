@@ -1,0 +1,26 @@
+ECE471 Fall 2015 -- HW7
+
+Name:
+
+4. Describe your something cool:
+	For my something cool, I had the temperature sensor take a 15 second sample, printing the temperature in degrees celsius every
+second. At the end of that 15 second period, the minimum temperature, maximum temperature, and average temperature would be printed
+to the screen.
+
+
+
+5. a. The anti-lock brake system on a car would be considered a hard real-time task. If the anti-lock brakes take too long to engage,
+	then a collision could occur, causing injuries or death.
+   b. The tune button on a car radio would be a soft real-time constraint because even if the deadline is missed, the information or action
+	is still relevant and usable, it might just be a mild inconvenience.
+   c. The video player presents a firm real-time task because if a frame deadline is missed, the video will be glitchy or slow, making it
+	useless to the viewer.
+   d. One thing that is a disadvantage of SPI compared to I2C is the fact that SPI can run a shorter distance than I2c.
+   e. No, I would not use this sensor unless there was an op amp in the system because the resistance of the wire will create a voltage
+	drop across the wire that would make the information much less reliable.
+
+6. a. If you pipe a command to /dev/null, the information is essentially nullified and thrown away.
+   b. If you pipe a command to /dev/full, it will not accept the command because there is no space left for it.
+   c. You could use /dev/zero for debugging to see if you get the expected results.
+   d. /dev/random contains random numbers 
+

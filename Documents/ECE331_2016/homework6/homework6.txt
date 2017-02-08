@@ -1,0 +1,97 @@
+Carter Stevens
+ECE 331
+Homework 6
+
+1. Code found on gitlab
+
+2. a) sudo insmod helloworld.ko
+   b) $ dmesg | tail | grep "Helloworld"
+        #outputs Hello World
+        #or
+      $ lsmod | grep "helloworld"
+        #outputs helloworld
+   c) $ sudo rmmod helloworld
+        #outputs Goodbye cruel world
+
+   d)  obj-m += helloworld.o
+       KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+
+       all:
+               make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+       clean:
+               make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+ECE 331
+Homework 6
+
+1. Code found on gitlab
+
+2. a) sudo insmod helloworld.ko
+   b) $ dmesg | tail | grep "Helloworld" 
+	#outputs Hello World
+        #or
+      $ lsmod | grep "helloworld"
+        #outputs helloworld
+   c) $ sudo rmmod helloworld
+        #outputs Goodbye cruel world
+
+   d)  obj-m += helloworld.o
+       KERNELDIR ?= /lib/modules/$(shell uname -r)/build	
+   
+       all:
+               make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+   
+       clean:
+               make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+
+
+    e)  #include <linux/init.h>
+	#include <linux/module.h>
+	MODULE_LICENSE("Dual BSD/GPL");
+
+	static int hello_init(void)
+	{
+	        printk(KERN_ALERT "Hello world\n");
+	        return 0;
+	}
+	
+	static int hello_exit(void)
+	{
+	        printk(KERN_ALERT "Goodbye cruel world\n");
+	}
+	
+	module_init(hello_init);
+	module_exit(hello_exit);
+
+3. a)   #include <stdlib.h>
+	#include <stdio.h>
+	#include <unistd.h>
+	#include <signal.h>
+	
+	int main() 
+	{
+	
+	        pid_t pid;    
+	
+	        pid = fork();                           //splits process
+	        if (pid < 0){                           //fork returns -1 on fail
+	                perror("Failed to fork");
+	                return -1; 
+	        }
+	
+	        if ( pid == 0 ){                        //child process has id of 0
+	                while(1){
+	                        sleep(1);
+	                }
+		        }
+		else {                                  //parent process has positive id
+			kill(pid, SIGKILL);             //kills process signal
+        	        sleep(10);
+	        }
+	        return 0;
+	}
+
+    b)  (in new terminal)
+	$ ps -e -o pid,ppid,stat,cmd
+	# output is 4236  2535  S+  ./zombie
+	            4236  4235  Z+  [zombie] <defunct>

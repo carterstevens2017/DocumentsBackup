@@ -1,0 +1,7 @@
+Name:
+
+Answers to homework questions in Part6:
+a) To find more about a command you can use the command "make" then the command you would like to know more about.
+b)The -a option in the program ls shows all files in a directory, even hidden ones.
+c)The "Make" program converts object files into executables
+d)I am using the monitor/keyboard method to connect to my pi and am using a USB drive to copy files back and forth.

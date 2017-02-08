@@ -1,0 +1,26 @@
+Name: Carter Stevens
+
+Packets from TCP dump:
+
+14:20:47.948421 IP 127.0.0.1.46946 > 127.0.0.1.31337: Flags [P.], seq 3842275564:3842275578, ack 2048897162, win 342, options [nop,nop,TS val 2660682 ecr 2646590], length 14
+E..B@d@.@..O.........bzi..x.z......V.6.....
+.(.J.(b>TCP dump test
+
+14:20:47.948725 IP 127.0.0.1.46946 > 127.0.0.1.31337: Flags [.], ack 26, win 342, options [nop,nop,TS val 2660682 ecr 2660682], length 0
+E..4@e@.@..\.........bzi..x.z......V.(.....
+.(.J.(.J
+
+
+Answer to Questions in Part 5:
+
+a) Satellite connections allow for easier transmission of signals over long distances as compared to fiber networks.
+
+b) Fiber networks are not affected by environmental issues such as storms or physical obsticals.
+
+c) No, you cannot transmit at 4.3GHz unless you want the government knocking down your door. The government has reserved
+the use of 4.3Ghz for Auronautical radionavigation.
+
+
+
+
+

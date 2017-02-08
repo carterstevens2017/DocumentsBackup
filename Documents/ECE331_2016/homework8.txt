@@ -1,0 +1,258 @@
+Carter Stevens
+
+ECE 331
+
+Homework 8
+
+
+
+1) 
+	IP: 32.56.34.123
+
+	Netmask: 255.224.0.0
+
+	Inverse Netmask: 0.31.255.255
+
+
+	Network addr = IP & Netmask
+ 
+	Network: 32.32.0.0
+
+
+	Broadcast Addr = IP | ~Netmask
+
+	Broadcast Addr: 32.63.255.255
+
+
+
+2) First octet of IP address is 32 so it is a Class A network.
+	That means that the final three octets are available for hosts.
+	
+	Host octets in subnet mask: ##.224.0.0 = ########.11100000.00000000.00000000
+
+	21 zeros means that there are 2^21 addresses or 2,097,152
+
+3)  
+
+a)
+	[1]"Perl Socket Programming", www.tutorialspoint.com, 2016. [Online].
+
+	Available: http://tutorialspoint.com/perl/perl_socket_programming.htm.
+
+	[Accessed: 14-Apr-2016].
+	
+	
+
+b) Server Code:
+
+#!/usr/bin/perl
+
+# Filename : TCPserver.pl
+
+
+use strict;
+
+use Socket;
+
+
+my $port = shift || 7890;
+#selects port
+my $proto = getprotobyname('tcp');
+
+my $server = "localhost";   #Host IP
+
+
+
+#creates a reusable socket
+
+socket(SOCKET, PF_INET, SOCK_STREAM, $proto)
+
+	or die "Can't open socket $!\n";
+
+setsockopt(SOCKET, SOL_SOCKET, SO_REUSEADDR, 1)
+
+ 	or die "Can't set socket to SO_REUSEADDR $!\n";
+
+
+
+#bind to a port and listen
+
+bind(SOCKET, pack_sockaddr_in($port, inet_aton($server)))
+
+	or die "Can't bind to port $port! \n";
+
+
+listen(SOCKET, 5)
+	or die "listen: $!";
+	
+
+print "SERVER started on port $port\n";
+
+
+
+#accepting a connection
+
+my $client_addr;
+
+while($client_addr = accept(NEW_SOCKET,SOCKET)) {
+
+	my $name = gethostbyaddr($client_addr, AF_INET);
+
+	print NEW_SOCKET "Smile from the server";
+
+	print "Connection recieved from $name\n";
+
+	close NEW_SOCKET;
+
+}
+
+	
+
+
+Client code:
+
+
+
+#!/usr/bin/perl -w
+
+# Filename : TCPclient.pl
+
+	
+
+use strict;
+	
+use Socket;
+
+	
+
+my $host = shift || 'localhost';
+	
+my $port = shift || 7890;
+	
+my $server = "localhost"; #IP of Host
+
+
+
+#creates socket and connects
+
+socket(SOCKET, PF_INET, SOCK_STREAM, (getprotobyname('tcp'))[2])
+
+    or die "Can't create a socket $!\n";
+
+connect( SOCKET, pack_sockaddr_in($port, inet_aton($server)))
+
+    or die"can't connect to port $port! \n";
+
+	
+
+my $line;
+	
+while ($line = <SOCKET>) {
+
+	print "$line\n";
+
+}
+
+close SOCKET or die "close: $!";
+
+
+
+4)
+#!/usr/bin/perl -w
+
+
+
+$ip = $ARGV[0];
+
+$nm = $ARGV[1];
+
+
+@ipaddr = split /\./, $ip;
+
+@nmaddr = split /\./, $nm;
+
+my @na;
+
+my @ba;
+
+
+foreach $a (0..3){
+
+	$na[$a] = ($ipaddr[$a]+0) & $nmaddr[$a];
+
+	$ba[$a] = ($ipaddr[$a]+0) | ((~$nmaddr[$a])&255);
+
+}
+
+$naddr = join('.', @na);
+
+$baddr = join('.', @ba);
+
+
+
+print "Network Address is $naddr\n";
+
+print "Broadcast Address is $baddr\n";
+
+
+
+5)
+#!/usr/bin/perl
+
+# Filename : TCPserver.pl
+
+use strict;
+
+use Socket;
+
+
+my $port = shift || 7890; #selects port
+
+my $proto = getprotobyname('tcp');
+
+my $server = "localhost";   #Host IP
+
+my $temp = `vcgencmd measure_temp`;
+
+
+#creates a reusable socket
+socket(SOCKET, PF_INET, SOCK_STREAM, $proto)
+
+	or die "Can't open socket $!\n";
+
+setsockopt(SOCKET, SOL_SOCKET, SO_REUSEADDR, 1)
+
+	or die "Can't set socket to SO_REUSEADDR $!\n";
+
+
+
+#bind to a port and listen
+
+bind(SOCKET, pack_sockaddr_in($port, inet_aton($server)))
+
+	or die "Can't bind to port $port! \n";
+
+
+listen(SOCKET, 5) or die "listen: $!";
+
+
+print "SERVER started on port $port\n";
+
+
+
+#accepting a connection
+
+my $client_addr;
+
+while($client_addr = accept(NEW_SOCKET,SOCKET)) {
+
+	my $name = gethostbyaddr($client_addr, AF_INET);
+
+	print NEW_SOCKET "$temp";
+
+	print "Connection recieved from $name\n";
+
+	close NEW_SOCKET;
+
+}
+

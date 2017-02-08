@@ -1,0 +1,169 @@
+ECE 331 Homework 3
+Carter Stevens
+
+1)
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+int **initarray(int columns, int row);
+
+int main(int argc, char *argv[]){
+	char *p;
+	int  argcount, i;
+	int columns = atoi(argv[1]);
+	int rows = atoi(argv[2]);
+	
+	/*Checks for correct number of arguments*/
+	if (argc != 3){
+		printf("Enter two arguments");
+		return 1;
+	}
+	/*Checks if arguments are negative*/	
+	if ( rows  < 0 || columns < 0){
+		printf("Error: Negative Number\n");
+		return 1;
+	}
+	/*Checks if arguments are integers*/
+	for( argcount=1; argcount<=argc; argcount++){
+		p = argv[argcount];
+		while( *p != '\0' ){
+			if ( *p < '0' || *p > '9'){
+				printf("Error: Enter Integers\n");
+				return 1;
+			}
+			p++;
+		}
+	}
+	/*Initializes array*/
+	int **arr = initarray(columns, rows);
+	
+	/*Frees memory before exiting*/	
+	for (i=0; i<columns; i++){
+		free(arr[i]);
+		printf("Column %d freed", i);
+	}
+	free(arr);
+	printf("Freeing complete");
+
+	return 0;
+	
+}
+
+int **initarray(int columns, int rows){
+	int **arr;
+	int i;
+	
+	/*Allocates array of pointers for columns*/
+	arr = (int **)malloc(columns * sizeof(int *));
+	if (arr == NULL){
+		printf("Error allocating columns");
+		exit(1);
+	}
+	/*Allocates array of ints for each pointer of first array*/
+	for (i=0; i<columns; i++){
+		arr[i] = (int *)malloc(rows * sizeof(int));
+		/*Frees allocated memory if allocation of rows fails*/
+		if (arr[i] == NULL){
+			printf("Error allocating rows");
+			while (i--){
+				free(arr[i]);
+				printf("Row %d freed", i);
+			}
+			free(arr);
+			printf("Free complete");
+			exit(2);
+		}
+	}
+	return arr;
+}
+
+
+
+2)
+
+   #!/usr/bin/perl
+  
+   @out = `dpkg-query -W -f='\${Package}\t\${Depends}\n'`;
+   foreach(@out){
+           @pkg = split(' ',$_,2);
+           @dep = split(', ', $pkg[1]);
+           foreach $j(@dep){
+                   ($key,$ver) = split(' ', $j, 2);
+                   $lkup{$key}->{$pkg[0]}=$ver;
+          }
+  }
+  foreach $dep (sort(keys(%lkup))){
+          print "\n$dep required by:\n\t";
+          for $pkg (keys %{$lkup{$dep}}){
+                  print "$pkg ";
+                  if($lkup{$dep}{$pkg}){
+                          print "version $lkup{$dep}{$pkg}\n\t";
+                  }
+                  else{
+                          print "\n\t";
+                  }
+          }
+  }
+
+3) 0[xX][0-9a-fA-F]+ 
+
+4) 
+#!/usr/bin/perl
+
+$,="\n";
+
+@out = `dpkg-query -W -f='\${Package}\t\${Depends}\n'`;
+foreach(@out){
+	@pkg = split(' ',$_,2);
+	@dep = split(', ', $pkg[1]);
+	foreach $j(@dep){
+		($key,$ver) = split(' ', $j, 2);
+		$lkup{$key}->{$pkg[0]}=$ver;
+		$anon{$key}->{$pkg[0]}=$ver;
+	}
+}
+
+$dep = "libc6";
+
+print @{&pkgfetch(\%lkup, $dep)};
+
+sub pkgfetch{
+	for $pkg (keys @_[0]->{@_[1]}){
+		push(@val, $pkg);
+		push(@val, @_[0]->{@_[1]}{$pkg});
+	}
+	return \@val;
+}
+
+
+5) [0-9]{4}\.{2}[NESW]
+
+6)
+a. sudo apt-get update
+
+b. export WANT_SYMVERS=1
+
+c. sudo rpi-update
+
+d. sudo shutdown -r now
+
+e. cd /usr/src
+   sudo git init
+   sudo git clone --depth=1 https://github.com/raspberrypi/linux.git
+
+f. sudo mv linux/ linux-4.1.17
+
+g. cd linux-4.1.17
+   make mrproper
+   sudo modprove configs
+   sudo chown -R pi .
+   gunzip -c /proc/config.gz > .config
+   sudo ln -s /boot/Module7.symvers Module.symvers
+   make modules_prepare
+
+h. cd /lib/modules/4.1.17-v7+/
+   sudo ln -s /usr/src/linux-4.1.17/ build
+   
+i. sudo ln -s /usr/src/linux-4.1.17/build source
+

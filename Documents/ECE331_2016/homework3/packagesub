@@ -1,0 +1,28 @@
+#!/usr/bin/perl
+
+$,="\n";
+
+@out = `dpkg-query -W -f='\${Package}\t\${Depends}\n'`;
+foreach(@out){
+	@pkg = split(' ',$_,2);
+	@dep = split(', ', $pkg[1]);
+	foreach $j(@dep){
+		($key,$ver) = split(' ', $j, 2);
+		$lkup{$key}->{$pkg[0]}=$ver;
+		$anon{$key}->{$pkg[0]}=$ver;
+	}
+}
+
+$dep = "libc6";
+
+print @{&pkgfetch(\%lkup, $dep)};
+
+sub pkgfetch{
+	for $pkg (keys @_[0]->{@_[1]}){
+		push(@val, $pkg);
+		push(@val, @_[0]->{@_[1]}{$pkg});
+	}
+	return \@val;
+}
+
+

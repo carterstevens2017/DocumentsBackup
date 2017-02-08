@@ -1,0 +1,11 @@
+ECE 331
+Homework 10
+4/26/16
+
+1)
+sudo apt-get install zsh
+sudo adduser -c "Emily James" -s /etc/bin/zsh em
+
+2)
+cd /opt/
+wget

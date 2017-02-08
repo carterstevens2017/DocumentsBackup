@@ -1,0 +1,31 @@
+ECE471 HW5 -- Fall 2015
+
+Name:
+
+
+6.	Describe what your "something cool" code does
+
+	My "something cool" takes my initials, CAS, and "drops" them into the LED display,
+	meaning that the bottom part of the letters are shown at the top of each segment which
+	"decends" from off screen at the top to off screen on the bottom.
+
+7.
+ a).	Our raspberry pi's use a SoC, or more specifically the Broadcom BCM2835.
+	This is used for video encoding and decoding, and imaging. The digital signal
+	processing core handles the initial boot before handing control over to the ARM
+	processor. Most ARM boards do not have their boot on external memory.
+ 
+b).	The boot loader is responsible for finishing the initial boot and loading the
+	operating system into memory on start up or reboot.
+	
+c).	The /boot partition on the Pi is a FAT32 filesystem because it is simple, low memory,
+	works on most machines, and has no patents on it. Also, the firmware is smart enough
+	to load it.
+
+8.
+ a).	My display_final.c program has 91 lines in it.
+
+ b).	The size difference between display_final.c and display_test.c is 66 lines.
+
+
+

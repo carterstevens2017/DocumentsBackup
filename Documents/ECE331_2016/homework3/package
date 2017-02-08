@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+
+@out = `dpkg-query -W -f='\${Package}\t\${Depends}\n'`;
+foreach(@out){
+	@pkg = split(' ',$_,2);
+	@dep = split(', ', $pkg[1]);
+	foreach $j(@dep){
+		($key,$ver) = split(' ', $j, 2);
+		$lkup{$key}->{$pkg[0]}=$ver;
+	}
+}
+foreach $dep (sort(keys(%lkup))){
+	print "\n$dep required by:\n\t";
+	for $pkg (keys %{$lkup{$dep}}){
+		print "$pkg ";
+		if($lkup{$dep}{$pkg}){
+			print "version $lkup{$dep}{$pkg}\n\t";
+		}
+		else{
+			print "\n\t";
+		}
+	} 
+}
+
+

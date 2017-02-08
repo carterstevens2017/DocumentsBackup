@@ -1,0 +1,38 @@
+ECE435 -- Homework #3 -- Fall 2016
+
+Name: Carter Stevens
+
+Answers to homework questions:
+
+4a. 100Mbps
+4b. My ifconfig reads no collisions on sending, no errors, 
+	and nearly 600,000 dropped receiving packets
+
+4c. As of right now I only have two devices on my ethernet network,
+	my raspberry pi and my router.
+
+6a. 14:08:40.669561 b8:27:eb:a1:7e:a3 (oui Unknown) > 0c:c4:7a:44:ae:b8 (oui Unknown), ethertype IPv4 (0x0800), length 70: 10.70.0.31.55914 > 130.111.19.185.http: Flags [P.], seq 1:5, ack 1, win 229, options [nop,nop,TS val 80347955 ecr 1162766581], length 4
+	0x0000:  0cc4 7a44 aeb8 b827 eba1 7ea3 0800 4500  ..zD...'..~...E.
+	0x0010:  0038 55be 4000 4006 4475 0a46 001f 826f  .8U.@.@.Du.F...o
+	0x0020:  13b9 da6a 0050 e8a4 550f 6cc6 6093 8018  ...j.P..U.l.`...
+	0x0030:  00e5 a0b7 0000 0101 080a 04ca 0333 454e  .............3EN
+	0x0040:  68f5 4745 540a                           h.GET.
+
+6b. 0c:c4:7a:44:ae:b8 is the MAC address in the source field and it 
+	belongs to Super Micro Computer, Inc.
+
+6c. ethertype IPv4 (0x0800)
+
+6d. The ethernet packets have to be a minimum size, so a packet that is
+	too small gets stuffed with extra bytes.
+
+7a. Ethernet won out over token ring due to the fact it has better 
+	performance and speed while also being the cheaper option.
+
+7b. An ethernet switch knows "who" is connected to each node so
+	a packet is sent over the required node, not broadcasted, which
+	increases security and reduces collisions.
+
+7c.	Wired ethernet has no wireless interference problems like wifi does.
+
+

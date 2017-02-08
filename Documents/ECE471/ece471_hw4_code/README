@@ -1,0 +1,34 @@
+ECE 471 Fall 2015 -- Homework 4
+
+Name: Carter Stevens
+
+
+What you did for something cool (if applicable): Implemented for loops to create a constant "SOS" signal with my LED
+
+
+Answers to Question #5:
+
+a.It is better to use udelay() rather than a busy loop because it saves energy rather than using the processor during
+	the whole delay, and the C compiler can sometimes optimize the code, making the timing irregular and hard to 
+	specify.
+
+b.An operating system helps when programming GPIOs due to the fact that it eliminates a lot of tedious steps such as
+	selecting the GPIO clock, setting the clock speed, and reading and writing to registers in seperate instructions.
+	Also, the OS can handle the updated bitfields so the user does not have to shift or mask the registers.
+
+c.Many of the aspects of the operating systems that make them so convenient are also the same aspects that impose
+	limitations. Using the operating system you can't access the clocks to modify them to specific frequencies 
+	like you could if you were writing directly to the hardware. 
+
+d.Yes, I would consider a web browser to be part of an operating system because takes care of many of the finer details
+	of navigating the internet for you, making it much more user friendly.
+
+Answers to Question #6:
+
+a. Machine type:Raspberry Pi 2 Model B
+
+b. Kernel version:Linux raspberrypi 3.18.7-v7+
+
+c. Free Disk space:3.6G
+
+d. -h in the instruction df -h makes the data output human readable

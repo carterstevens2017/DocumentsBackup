@@ -1,0 +1,44 @@
+Carter Stevens
+ECE 331
+Homework 5
+
+1. Available on git in new repository "bell202" to make up for lack of push last week. Updates were made to include new flag "-o" to stop bitstuffing
+
+2. Available on git in repository "CRC". Provided test inputs were tested and outputs were as expected.
+
+3. a) $ chmod 511 voldemort
+   b) $ chmod u-r,g+w-x,o+w voldemort
+
+4. $ sudo apt-get update
+   $ sudo apt-get upgrade
+
+5.
+
+$ yes | sudo rm -r /usr/src/linux-4.1.17/
+$ sudo apt-get update
+$ export WANT_SYMVERS=1
+$ sudo rpi-update
+$ sudo shutdown -r now
+$ cd /usr/src
+$ sudo git init
+$ sudo git clone --depth=1 https://github.com/raspberrypi/linux.git
+$ sudo mv linux/ linux-4.1.17
+$ cd linux-4.1.17
+$ make mrproper
+$ sudo modprove configs
+$ sudo bash
+$ gunzip -c /proc/config.gz > .config
+$ exit
+$ sudo ln -s /boot/Module7.symvers Module.symvers
+$ sudo chown -R pi .
+$ make modules_prepare
+$ cd /lib/modules/4.1.17-v7+/
+$ sudo ln -s /usr/src/linux-4.1.17/ build
+$ sudo ln -s /usr/src/linux-4.1.17/build source
+
+6. $ find / -type d -user pi | wc -l
+
+7. a) $ dd if=/dev/zero of=zeros bs=32M count=1
+   b) $ mkfs -t ext3 zeros
+   c) $ mount zeros
+   d) $ cp -a . /mnt
